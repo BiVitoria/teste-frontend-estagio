@@ -39,6 +39,23 @@ export const authenticateUser = async (
   return !!user;
 };
 
+export const checkUserExists = async (
+  username: string,
+  email: string
+): Promise<{ usernameExists: boolean; emailExists: boolean }> => {
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  const existingUsername = credentials.users.find(
+    (u) => u.username === username
+  );
+  const existingEmail = credentials.users.find((u) => u.email === email);
+
+  return {
+    usernameExists: !!existingUsername,
+    emailExists: !!existingEmail,
+  };
+};
+
 export const registerUser = async (
   username: string,
   password: string,
@@ -53,9 +70,21 @@ export const registerUser = async (
     return false;
   }
 
-  // In a real app, you would save to database
-  // For this demo, we'll just return true
+  credentials.users.push({
+    username,
+    password,
+    email,
+  });
+
   return true;
+};
+
+export const sendPasswordResetEmail = async (
+  email: string
+): Promise<boolean> => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const user = credentials.users.find((u) => u.email === email);
+  return !!user;
 };
 
 export const isAuthenticated = (): boolean => {
