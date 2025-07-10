@@ -92,12 +92,26 @@ export const isAuthenticated = (): boolean => {
   return !!localStorage.getItem("auth_token");
 };
 
-export const login = (token: string): void => {
+export const login = (token: string, username: string): void => {
   if (typeof window === "undefined") return;
   localStorage.setItem("auth_token", token);
+  localStorage.setItem("current_user", username);
 };
 
 export const logout = (): void => {
   if (typeof window === "undefined") return;
   localStorage.removeItem("auth_token");
+  localStorage.removeItem("current_user");
+};
+
+export const getCurrentUser = (): User | null => {
+  if (typeof window === "undefined") return null;
+
+  const token = localStorage.getItem("auth_token");
+  const username = localStorage.getItem("current_user");
+
+  if (!token || !username) return null;
+
+  const user = credentials.users.find((u) => u.username === username);
+  return user || null;
 };
