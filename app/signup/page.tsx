@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, X, CheckCircle } from "lucide-react";
 
 import { checkUserExists, registerUser, isAuthenticated } from "@/lib/auth";
-import { Input, SubmitButton, Loader } from "@/components";
+import { Input, SubmitButton, Loader, ThemeToggle } from "@/components";
 
 interface SignupData {
   username: string;
@@ -220,9 +220,12 @@ const Signup = () => {
 
   return (
     <Suspense fallback="Carregando...">
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="flex flex-col w-[450px] p-8 bg-white rounded-xl shadow-lg">
-          <h1 className="text-center font-bold text-[28px] md:text-[32px] hover:scale-[1.03] transition-all duration-500 cursor-default">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
+        <div className="flex flex-col w-[450px] p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+          <h1 className="text-center font-bold text-[28px] md:text-[32px] hover:scale-[1.03] transition-all duration-500 cursor-default text-gray-900 dark:text-white">
             Criar conta na{" "}
             <span className="gradient-text from-secondary-purple to-primary-purple">
               Capivara AI
@@ -235,7 +238,7 @@ const Signup = () => {
             className="flex flex-col mt-8 relative"
           >
             <label
-              className="block text-base font-medium mt-8 mb-2"
+              className="block text-base font-medium mt-8 mb-2 text-gray-900 dark:text-white"
               htmlFor="username-input"
             >
               Nome de usuário
@@ -259,7 +262,7 @@ const Signup = () => {
             )}
 
             <label
-              className="block text-base font-medium mt-6 mb-2"
+              className="block text-base font-medium mt-6 mb-2 text-gray-900 dark:text-white"
               htmlFor="email-input"
             >
               Email
@@ -283,7 +286,7 @@ const Signup = () => {
             )}
 
             <label
-              className="block text-base font-medium mt-6 mb-2"
+              className="block text-base font-medium mt-6 mb-2 text-gray-900 dark:text-white"
               htmlFor="password-input"
             >
               Senha
@@ -338,7 +341,7 @@ const Signup = () => {
             )}
 
             <label
-              className="block text-base font-medium mt-6 mb-2"
+              className="block text-base font-medium mt-6 mb-2 text-gray-900 dark:text-white"
               htmlFor="confirm-password-input"
             >
               Confirmar senha

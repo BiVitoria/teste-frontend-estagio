@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, X } from "lucide-react";
 
 import { authenticateUser, isAuthenticated, login } from "@/lib/auth";
-import { Input, SubmitButton, Loader } from "@/components";
+import { Input, SubmitButton, Loader, ThemeToggle } from "@/components";
 
 const Login = () => {
   const { push } = useRouter();
@@ -80,9 +80,12 @@ const Login = () => {
 
   return (
     <Suspense fallback="Carregando...">
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="flex flex-col w-[450px] p-8 bg-white rounded-xl shadow-lg">
-          <h1 className="text-center font-bold text-[28px] md:text-[32px] hover:scale-[1.03] transition-all duration-500 cursor-default">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
+        <div className="flex flex-col w-[450px] p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+          <h1 className="text-center font-bold text-[28px] md:text-[32px] hover:scale-[1.03] transition-all duration-500 cursor-default text-gray-900 dark:text-white">
             Entrar na{" "}
             <span className="gradient-text from-secondary-purple to-primary-purple">
               Capivara AI
@@ -91,7 +94,7 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="flex flex-col mt-8 relative">
             <label
-              className="block text-base font-medium mt-8 mb-2"
+              className="block text-base font-medium mt-8 mb-2 text-gray-900 dark:text-white"
               htmlFor="username-input"
             >
               Usuário
@@ -111,7 +114,7 @@ const Login = () => {
             />
 
             <label
-              className="block text-base font-medium mt-8 mb-2"
+              className="block text-base font-medium mt-8 mb-2 text-gray-900 dark:text-white"
               htmlFor="password-input"
             >
               Senha
@@ -137,6 +140,15 @@ const Login = () => {
               }
               onClickIcon={() => setShowPassword((prev) => !prev)}
             />
+            <div className="mt-2 text-right">
+              <button
+                type="button"
+                onClick={() => push("/forgot-password")}
+                className="text-primary-purple hover:text-secondary-purple text-sm font-medium transition-colors"
+              >
+                Esqueceu a senha?
+              </button>
+            </div>
 
             {errorMessage && (
               <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
