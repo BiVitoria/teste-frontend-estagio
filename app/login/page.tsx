@@ -15,6 +15,7 @@ const Login = () => {
   const [shakeUsername, setShakeUsername] = useState<boolean>(false);
   const [shakePassword, setShakePassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const [loginData, setLoginData] = useState({
     username: "",
@@ -50,7 +51,7 @@ const Login = () => {
       );
 
       if (isValid) {
-        login("dummy-token");
+        login("dummy-token", loginData.username);
         push("/dashboard");
       } else {
         setIsCredentialsInvalid(true);
@@ -140,6 +141,20 @@ const Login = () => {
               }
               onClickIcon={() => setShowPassword((prev) => !prev)}
             />
+            <div className="mt-4 flex items-center justify-between">
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  disabled={isSubmitLoading}
+                  className="w-4 h-4 text-primary-purple bg-gray-100 border-gray-300 rounded focus:ring-primary-purple focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Lembrar de mim
+                </span>
+              </label>
+            </div>
             <div className="mt-2 text-right">
               <button
                 type="button"

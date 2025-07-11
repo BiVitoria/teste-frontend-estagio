@@ -33,9 +33,7 @@ const ForgotPassword = () => {
     try {
       const sent = await sendPasswordResetEmail(email);
       if (sent) {
-        setSuccess(
-          "Enviamos um link de redefinição para seu email, se ele existir em nosso sistema."
-        );
+        setSuccess("Enviamos um link de redefinição para seu email.");
       } else {
         setError("Email não encontrado. Verifique e tente novamente.");
         setShake(true);

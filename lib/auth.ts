@@ -29,13 +29,10 @@ export const authenticateUser = async (
   username: string,
   password: string
 ): Promise<boolean> => {
-  // Simulate API delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const user = credentials.users.find(
     (u) => u.username === username && u.password === password
   );
-
   return !!user;
 };
 
@@ -44,12 +41,10 @@ export const checkUserExists = async (
   email: string
 ): Promise<{ usernameExists: boolean; emailExists: boolean }> => {
   await new Promise((resolve) => setTimeout(resolve, 500));
-
   const existingUsername = credentials.users.find(
     (u) => u.username === username
   );
   const existingEmail = credentials.users.find((u) => u.email === email);
-
   return {
     usernameExists: !!existingUsername,
     emailExists: !!existingEmail,
@@ -61,21 +56,16 @@ export const registerUser = async (
   password: string,
   email: string
 ): Promise<boolean> => {
-  // Simulate API delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  // Check if user already exists
   const existingUser = credentials.users.find((u) => u.username === username);
   if (existingUser) {
     return false;
   }
-
   credentials.users.push({
     username,
     password,
     email,
   });
-
   return true;
 };
 
@@ -106,12 +96,9 @@ export const logout = (): void => {
 
 export const getCurrentUser = (): User | null => {
   if (typeof window === "undefined") return null;
-
   const token = localStorage.getItem("auth_token");
   const username = localStorage.getItem("current_user");
-
   if (!token || !username) return null;
-
   const user = credentials.users.find((u) => u.username === username);
   return user || null;
 };

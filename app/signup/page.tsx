@@ -58,8 +58,11 @@ const Signup = () => {
   }, [push]);
 
   const isValidEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return (
+      email.includes("@") &&
+      email.includes(".") &&
+      email.indexOf("@") < email.lastIndexOf(".")
+    );
   };
 
   const isValidPassword = (password: string): boolean => {
@@ -291,26 +294,32 @@ const Signup = () => {
             >
               Senha
             </label>
-            <Input
-              id="password-input"
-              type={showPassword ? "text" : "password"}
-              placeholder="Digite sua senha"
-              value={signupData.password}
-              onChange={(event) =>
-                handleInputChange("password", event.target.value)
-              }
-              state={validationErrors.password ? "error" : "default"}
-              disabled={isSubmitLoading}
-              className={`${shakeFields.password && "animate-shake"}`}
-              icon={
-                showPassword ? (
-                  <EyeOff size={20} className="text-primary-purple" />
-                ) : (
-                  <Eye size={20} className="text-primary-purple" />
-                )
-              }
-              onClickIcon={() => setShowPassword((prev) => !prev)}
-            />
+            <div className="relative group">
+              <Input
+                id="password-input"
+                type={showPassword ? "text" : "password"}
+                placeholder="Digite sua senha"
+                value={signupData.password}
+                onChange={(event) =>
+                  handleInputChange("password", event.target.value)
+                }
+                state={validationErrors.password ? "error" : "default"}
+                disabled={isSubmitLoading}
+                className={`${shakeFields.password && "animate-shake"}`}
+                icon={
+                  showPassword ? (
+                    <EyeOff size={20} className="text-primary-purple" />
+                  ) : (
+                    <Eye size={20} className="text-primary-purple" />
+                  )
+                }
+                onClickIcon={() => setShowPassword((prev) => !prev)}
+              />
+              <div className="absolute left-0 -bottom-8 bg-gray-800 dark:bg-gray-700 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                senha com mínimo de 6 caracteres
+                <div className="absolute -top-1 left-2 w-2 h-2 bg-gray-800 dark:bg-gray-700 transform rotate-45"></div>
+              </div>
+            </div>
             {signupData.password && (
               <div className="mt-2 flex items-center gap-3">
                 <div className="w-32 h-2 rounded bg-gray-200 overflow-hidden">
