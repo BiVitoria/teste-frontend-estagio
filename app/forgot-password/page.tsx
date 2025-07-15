@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { sendPasswordResetEmail } from "@/lib/auth";
+import { isAuthenticated, sendPasswordResetEmail } from "@/lib/auth";
 import { Input, SubmitButton, Loader, ThemeToggle } from "@/components";
 import { X, CheckCircle } from "lucide-react";
 
@@ -15,6 +15,12 @@ const ForgotPassword = () => {
 
   const isValidEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      push("/dashboard");
+    }
+  }, [push]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
